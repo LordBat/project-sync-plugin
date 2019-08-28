@@ -195,8 +195,9 @@ class PluginRedminesyncSync extends CommonGLPI
         $name = $data->subject;
         $content = $data->description;
         $redmine_id = $data->id;
+        $percent_done = $data->done_ratio;
 
-        $create_project_sql = "UPDATE glpi_projecttasks SET name='$name', content='$content' WHERE id=
+        $create_project_sql = "UPDATE glpi_projecttasks SET name='$redmine_id - $name', percent_done='$percent_done', content='$content' WHERE id=
         (SELECT task_id FROM glpi_plugin_redminesync_synclog WHERE rm_task_id=$redmine_id LIMIT 1)";
         $DB->query($create_project_sql);
     }
